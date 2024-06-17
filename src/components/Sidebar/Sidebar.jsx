@@ -5,7 +5,6 @@ import {FaAngleRight, FaChartBar, FaCogs, FaDatabase, FaDoorClosed, FaHome, FaUs
 import { routeServer } from '../App';
 import { useStateContext } from '../contexts/ContextApp';
 
-
 const Sidebar = () => {
 
   const { collapseSidebar, collapsed } = useProSidebar();

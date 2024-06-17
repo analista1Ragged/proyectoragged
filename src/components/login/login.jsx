@@ -21,7 +21,12 @@ const Login = (props) => {
     } 
 
     return <section className="formulario">
-        <form onSubmit={manejarEnvio}>
+        
+        <div className="image-container">
+            <img src="/img/header.jpg" alt="Descripción" />
+        </div>
+
+        <form onSubmit={manejarEnvio} >
             <div className="form-container">
                 <h2>¡ Bienvenido a Ragged Digital !</h2>
                 <CampoTexto
