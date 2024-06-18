@@ -2,9 +2,11 @@
 import './App.css';
 import React from 'react'
 import Login from './components/login/login'
-import Header from './components/Banner/Banner';
-import { Sidebar } from 'react-pro-sidebar';
 import Home from './pages/Home';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { useStateContext } from './contexts/ContextApp'
+import Layout from './pages/Layout';
+
 
 
 
@@ -12,11 +14,15 @@ const App = () => {
 
 
   return (
-    <div>
-      
-      <Login />
-    
-    </div>
+    <Router>
+      <Routes>
+
+        <Route path="/" element={<Navigate to="/Login" />} >
+        </Route>
+        <Route path="/Login" element={<Login />}/>
+        <Route path="/Home" element={<Home />}/>
+      </Routes>
+  </Router>
   )
 }
 

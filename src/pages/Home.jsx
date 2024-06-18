@@ -1,12 +1,12 @@
 import React from 'react';
 import "./Home.css"
+import { Sidebar } from 'react-pro-sidebar';
+
 
 const Home = () => {
   return (
-    <div>
-      <Sidebar />
-    </div>
-  );
+    <div>Home</div>
+  )
 }
 
-export default Home;
+export default Home

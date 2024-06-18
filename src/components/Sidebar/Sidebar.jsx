@@ -1,177 +1,59 @@
-import React, { Fragment } from 'react'
-import { Sidebar as SB, Menu, MenuItem, SubMenu, useProSidebar, menuClasses } from 'react-pro-sidebar';
-import { Link } from 'react-router-dom';
-import {FaAngleRight, FaChartBar, FaCogs, FaDatabase, FaDoorClosed, FaHome, FaUser} from 'react-icons/fa'
-import { routeServer } from '../App';
-import { useStateContext } from '../contexts/ContextApp';
+import React from 'react';
+import "./Sidebar.css"
+
 
 const Sidebar = () => {
 
-  const { collapseSidebar, collapsed } = useProSidebar();
+return(
 
-  const {roleCode} = useStateContext();
-
-  const menu = [
-    {
-      title: 'Ventas',
-      auth: ["ADM", "UPD", "VDR", "ECM", "CRD"],
-      icon: <FaChartBar />,
-      submenu: [
-        {
-          title: 'Gestión comercial',
-          auth: ["ADM", "UPD"],
-          route: '/reportes/canal',
-        },
-        {
-          title: 'PDV',
-          auth: ["ADM", "UPD", "VDR", "CRD"],
-          route: '/reportes/tienda',
-        },
-        {
-          title: 'Zonas',
-          auth: ["ADM", "UPD", "CRD"],
-          route: '/reportes/coordinacion',
-        },
-        {
-          title: 'E-commerce',
-          auth: ["ADM", "UPD", "ECM"],
-          route: '/ecommerce',
-          
-        },
-      ]
-    },
-    {
-      title: 'Administración',
-      auth: ["ADM", "UPD"],
-      icon: <FaDatabase />,
-      submenu: [
-        {
-          title: 'Almacenes',
-          auth: ["ADM", "UPD"],
-          route: '/almacenes',
-        },
-        {
-          title: 'Presupuestos',
-          auth: ["ADM", "UPD"],
-          route: '/presupuestos',
-        },
-        {
-          title: 'Vendedores',
-          auth: ["ADM", "UPD"],
-          route: '/vendedores',
-        },
-        {
-          title: 'Coordinación',
-          auth: ["ADM", "UPD"],
-          route: '/coordinacion',
-        },
-        {
-          title: 'Grupos',
-          auth: ["ADM", "UPD"],
-          route: '/grupos',
-        },
-        {
-          title: 'Canales',
-          auth: ["ADM", "UPD"],
-          route: '/canales',
-        },
-        {
-          title: 'Importar ventas',
-          auth: ["ADM", "UPD"],
-          route: '/ventas/importar',
-        },
-        {
-          title: 'Importar inventario',
-          auth: ["ADM", "UPD"],
-          route: '/inventario/importar',
-        },
-      ]
-    },
-    {
-      title: 'Ajustes',
-      auth: ["ADM", "UPD"],
-      icon: <FaCogs />,
-      submenu: [
-        {
-          title: 'Usuarios',
-          auth: ["ADM", "UPD"],
-          route: '/usuarios'
-        },
-        {
-          title: 'Roles',
-          auth: ["ADM", "UPD"],
-          route: '/roles'
-        },
-      ]
-    },
-    {
-      title: 'Mi cuenta',
-      auth: ["ADM", "UPD", "VDR", "ECM", "CRD"],
-      icon: <FaUser />,
-      submenu: [
-        {
-          title: 'Cerrar sesión',
-          auth: ["ADM", "UPD", "VDR", "ECM", "CRD"],
-          route: '/login',
-          icon: <FaDoorClosed />
-        }
-      ]
-    }
-  ]
-
-  const {colorApp} = useStateContext();
-
-  const menuItemStyles= {
-    [`.${menuClasses.menuItemRoot}`]: {
-      backgroundColor: '#322e6d'
-    },
-    [`.${menuClasses.button}`]: {
-      backgroundColor: colorApp,
-      color: '#fff',
-      '&:hover': {
-        backgroundColor: colorApp,
-        filter: 'brightness(.9)'
-      }
-    },
-  }
-
-  return (
-    <div className='flex h-full relative'>
-      <button onClick={() => collapseSidebar()} className='hidden absolute right-0 z-[4] bg-white ring ring-gray-300 rounded-full p-2 md:flex justify-center items-center translate-x-[50%] translate-y-[50%]'>
-          <FaAngleRight className={`${!collapsed && 'rotate-180'} transition-all duration-300`}/>
-      </button>
-      <SB backgroundColor={colorApp} rootStyles={menuItemStyles} defaultCollapsed>
-        <Menu>
-            <MenuItem component={<Link to={routeServer} />} icon={<FaHome />}>
-              <img src="https://unicentrodearmenia.com/wp-content/uploads/2016/06/ragged-logo.png" alt="LOGO" className='py-1'/>
-            </MenuItem>
-            {menu.map((nav, index) => (
-              <>
-              {nav.auth.includes(roleCode) && (
-                <Fragment key={index}>
-                {!nav.submenu ? (
-                    <MenuItem component={<Link to={routeServer+nav.route} />} icon={nav.icon}>
-                      {nav.title}
-                    </MenuItem>
-                ) : (
-                  <SubMenu label={nav.title} icon={nav.icon}>
-                    {nav.submenu.map((sub, index) => (
-                      <>
-                        {sub.auth.includes(roleCode) && (
-                          <MenuItem key={index} component={<Link to={routeServer+sub.route} />} icon={sub.icon}> {sub.title}</MenuItem>
-                        )}
-                      </>
-                    ))}
-                  </SubMenu>
-                )}
-                </Fragment>
-              )}
-              </>
-            ))}
-        </Menu>
-      </SB>
-    </div>
-  )
+<div classNane="bg-dark text-white border-right" id="sidebar-wrapper">
+  <div id="sidebar-accordion" classNane="accordion">
+      <div classNane="list-group">
+          <a href="{{ url_for('home') }}" title="Inicio"
+              classNane="list-group-item list-group-item-action bg-dark text-light">
+              <i classNane="fa fa-home mr-3"></i> Inicio
+          </a>
+          <a href="{{ url_for('informe') }}" title="Informe PB"
+              classNane="list-group-item list-group-item-action bg-dark text-light">
+              <i classNane="fa fa-line-chart mr-3"></i> Informe PB
+          </a>
+          <a href="#dashboard-items" title="Funciones Ecommerce Vtex" data-toggle="collapse" aria-expanded="false"
+              classNane="list-group-item list-group-item-action bg-dark text-light">
+              <i classNane="fa fa-shopping-cart mr-3"></i> Ecommerce
+          </a>
+          <div id="dashboard-items" classNane="collapse" data-parent="#sidebar-accordion">
+              <a href="{{ url_for('paginaMtto') }}" title="Funciones Ecommerce Vtex"
+                  classNane="list-group-item list-group-item-action bg-dark text-light pl-5"> Ragged </a>
+              <a href="{{ url_for('paginaMtto') }}" title="Funciones Ecommerce Vtex"
+                  classNane="list-group-item list-group-item-action bg-dark text-light pl-5"> Vtex </a>
+              <a href="{{ url_for('addCarro') }}" title="Funciones Ecommerce Vtex"
+                  classNane="list-group-item list-group-item-action bg-dark text-light pl-5"> Ver Capsulas </a>
+          </div>
+          <a href="#profile-items" title="Contabilidad" data-toggle="collapse" aria-expanded="false"
+              classNane="list-group-item list-group-item-action bg-dark text-light">
+              <i classNane="fa fa-calculator mr-3"></i> Contabilidad
+          </a>
+          <div id="profile-items" classNane="collapse" data-parent="#sidebar-accordion">
+              <a href="#" title="Planos" classNane="list-group-item list-group-item-action bg-dark text-light pl-5"> Planos
+              </a>
+              <a href="{{ url_for('bancos') }}" title="Bancos"
+                  classNane="list-group-item list-group-item-action bg-dark text-light pl-5"> Bancos </a>
+          </div>
+          <a href="#setting-items" title="Settings" data-toggle="collapse" aria-expanded="false"
+              classNane="list-group-item list-group-item-action bg-dark text-light">
+              <i classNane="fa fa-cog mr-3"></i> Settings
+          </a>
+          <div id="setting-items" classNane="collapse" data-parent="#sidebar-accordion">
+              <a href="#" classNane="list-group-item list-group-item-action bg-dark text-light"> Item 1 </a>
+              <a href="#" classNane="list-group-item list-group-item-action bg-dark text-light"> Item 2 </a>
+          </div>
+          <a onclick="logout()" title="Cerrar Sesion" classNane="list-group-item list-group-item-action bg-dark text-light" style="cursor: pointer;">
+            <i classNane="fa fa-sign-out mr-3"></i> Cerrar Sesion
+        </a>
+      </div>    
+  </div>
+</div>
+)
 }
 
-export default Sidebar
+export default Sidebar;
